@@ -2,28 +2,61 @@ package binarySearch
 
 
 class TimeMap {
-    private val data = mutableMapOf<String, Pair<Any, Long>>()
 
-    fun put(key: String, value: Any, timestamp: Long) {
-        data[key] = Pair(value, timestamp)
+    private data class TimeStampValuePair(
+        val timestamp: Int,
+        val value: String
+    )
+
+    private val keyMap = mutableMapOf<String, MutableList<TimeStampValuePair>>()
+
+    fun set(key: String, value: String, timestamp: Int) {
+        keyMap.getOrPut(key, ::mutableListOf).add(TimeStampValuePair(timestamp, value))
     }
 
-    fun get(key: String, current_time: Long): Any? {
-        if (data.containsKey(key)) {
-            val (value, timestamp) = data[key]!!
-            if (timestamp >= current_time) {
-                return value
-            } else {
-                data.remove(key) // Remove expired entry
+    fun get(key: String, timestamp: Int): String {
+        if (key !in keyMap.keys) return ""
+        val searchList = keyMap.getValue(key)
+        if (searchList.isEmpty()) return ""
+        return binarySearch(
+            list = searchList,
+            targetTimeStamp = timestamp
+        )
+    }
+
+    private fun binarySearch(
+        list: List<TimeStampValuePair>,
+        targetTimeStamp: Int
+    ): String {
+        if (list.first().timestamp > targetTimeStamp) return ""
+        if (list.last().timestamp < targetTimeStamp) return list.last().value
+        var startIndex = 0
+        var endIndex = list.lastIndex
+        var midIndex: Int
+        var result = ""
+        while (startIndex <= endIndex) {
+            midIndex = startIndex + (endIndex - startIndex) / 2
+            when {
+                list[midIndex].timestamp <= targetTimeStamp -> {
+                    if (list[midIndex].timestamp == targetTimeStamp) return list[midIndex].value
+                    result = list[midIndex].value
+                    startIndex = midIndex + 1
+                }
+
+                else -> endIndex = midIndex - 1
             }
         }
-        return null
+        return result
     }
 }
 
 fun main() {
-    val timeMap = TimeMap()
-    timeMap.put("key1", "value1", 10)
-    println(timeMap.get("key1", 5)) // Output: "value1"
-    println(timeMap.get("key1", 15)) // Output: null (expired)
+    val input = TimeMap()
+    input.set("foo", "bar", 1)
+    println(input.get("foo", 1)) // bar
+    println(input.get("foo", 3)) // bar
+    input.set("foo", "bar2", 4)
+    println(input.get("foo", 4)) // bar2
+    println(input.get("foo", 5)) // bar2
+
 }
