@@ -2,15 +2,20 @@ package linkList
 
 fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
     if (head==null)return head
-    var prev :ListNode ?=null
-    var curr=head
-    while (curr!=null){
-        prev=curr
-        curr=curr.next
-    }
-    println("prev ${prev?.`val`}")
+    var dummy=ListNode(0)
+    dummy.next=head
+    var first = dummy
+    var second = dummy
 
-    return curr
+    for (i in 0 until n){
+        first=first.next!!
+    }
+    while (first.next!=null){
+        first=first.next!!
+        second=second.next!!
+    }
+    second.next=second.next!!.next
+    return dummy.next
 }
 
 fun main() {

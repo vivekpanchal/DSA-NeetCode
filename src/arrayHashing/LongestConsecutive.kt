@@ -1,7 +1,8 @@
 package arrayHashing
 
 
-/** Brute Force Approach
+/**
+ * Brute Force Approach
  * Time Complexity: O(n log n) due to sorting.
  * Space Complexity: O(1) if we don't count the space for the input and output.
  */
