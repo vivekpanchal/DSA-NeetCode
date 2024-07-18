@@ -3,7 +3,10 @@ package tree
 import kotlin.math.abs
 import kotlin.math.max
 
-
+/**
+ * Time complexity is (n log n) because we are traversing the tree in a recursive way.
+ * Space complexity is O(n) because of the recursive call stack.
+ */
 fun isBalanced(root: TreeNode?): Boolean {
     // If the tree is empty, we can say it’s balanced...
     if (root == null) return true;
