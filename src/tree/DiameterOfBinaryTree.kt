@@ -14,10 +14,16 @@ fun diameterOfBinaryTree(root: TreeNode?): Int {
 }
 
 
-
-
-
-
 fun main() {
-
+    val root = TreeNode(1).apply {
+        left = TreeNode(2).apply {
+            left = TreeNode(3)
+            right = TreeNode(4)
+        }
+        right = TreeNode(2).apply {
+            left = TreeNode(4)
+            right = TreeNode(3)
+        }
+    }
+    println(diameterOfBinaryTree(root))  // Output: 4
 }
