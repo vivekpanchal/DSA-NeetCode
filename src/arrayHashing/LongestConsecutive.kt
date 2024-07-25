@@ -1,12 +1,25 @@
 package arrayHashing
 
 
+
+/**
+ * Problem Statement:
+ * Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+ * Your algorithm should run in O(n) complexity.
+ *
+ * Example:
+ * Input: nums = [100, 4, 200, 1, 3, 2]
+ * Output: 4
+ * Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore, its length is 4.
+ */
+
+
+
 /**
  * Brute Force Approach
  * Time Complexity: O(n log n) due to sorting.
  * Space Complexity: O(1) if we don't count the space for the input and output.
  */
-
 fun longestConsecutive(nums: IntArray): Int {
     if (nums.isEmpty()) return 0 // if nothing is there return 0
     nums.sort() // this will take nLogN  for sorting
