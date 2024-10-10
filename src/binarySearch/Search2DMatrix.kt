@@ -33,6 +33,22 @@ fun searchMatrix(matrix: Array<IntArray>, target: Int): Boolean {
 }
 
 
+fun matSearch(mat: Array<IntArray>, target: Int): Boolean {
+    if (mat.isEmpty() || mat[0].isEmpty()) return false
+    val N = mat.size
+    val M = mat[0].size
+    var r = 0
+    var c = M - 1
+    while (r < N && c >= 0) {
+        if (mat[r][c] == target) return true
+        if (mat[r][c] > target) c--
+        else r++
+    }
+    return false
+}
+
+
+
 /**
  * Time complexity:  0(m*n)
  * Space complexity: O(1)
